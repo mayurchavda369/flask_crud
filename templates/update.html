@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Updation Form</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.css">
+  <style>
+    /* Your existing styles here */
+
+    /* Adjustments and additional styles */
+    .radio-label {
+      margin-right: 15px;
+    }
+
+    /* Adjust margins for certain elements */
+    .city,
+    .gender,
+    .courses,
+    .message {
+      margin-left: -10px;
+    }
+
+    /* New styles for button */
+    .button {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Custom button styles */
+    .submit {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .submit:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 style="border: solid black; color: red;">Student Updation Form</h2>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+      <h3 style="border: solid black; color: blue;">{{ message }}</h3>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <form action="{{ url_for('update', id=student[0]) }}" method="POST">
+      
+        <fieldset>
+          <div class="input-field">
+            <label for="name">Name</label>
+            <i class="fa fa-user icon"></i>
+            <input type="text" class="inputs" name="name" id="name" value="{{ student[1] }}" required>
+          </div>
+          
+          <div class="input-field">
+            <label for="email">Email</label>
+            <i class="fa fa-envelope icon"></i>
+            <input type="email" class="inputs" name="email" id="email" value="{{ student[2] }}" required>
+          </div>
+          <div class="input-field">
+            <label class="gender">Gender</label>
+            <input type="radio" name="gender" id="male" value="Male" {% if student[7] == "Male" %}checked{% endif %}>
+            <label class="radio-label" for="male">Male</label>
+            <input type="radio" name="gender" id="female" value="Female" {% if student[7] == "Female" %}checked{% endif %}>
+            <label class="radio-label" for="female">Female</label>
+          </div>
+          <div class="input-field">
+            <label for="password">Password</label>
+            <i class="fa fa-eye-slash icon"></i>
+            <input type="password" class="inputs" name="password" id="password" value="{{ student[3] }}" required>
+          </div>
+        </fieldset>
+  
+        <fieldset>
+          <div class="input-field">
+            <label class="message" for="address">Address</label>
+            <i class="fa-solid fa-address-book icon textarea-icon"></i>
+            <textarea class="textarea" id="address" name="address" required>{{ student[4] }}</textarea>
+          </div>
+          <div class="input-field">
+            <label class="city" for="city">City</label>
+            <i class="fa fa-list icon"></i>
+            <textarea class="textarea" id="city" name="city" required>{{ student[5] }}</textarea>
+          </div>
+          
+          <div class="input-field">
+            <label for="phone">Phone No</label>
+            <i class="fa fa-phone icon"></i>
+            <input type="number" class="inputs" name="phone" id="phone" value="{{ student[6] }}" required>
+          </div>
+        </fieldset>
+     
+
+      <div class="button">
+        <button type="submit" class="submit">UPDATE</button>
+        <a style="border: solid; color: red;" class="submit" href="{{ url_for('showdata') }}">Show Data</a>
+      </div>
+    </form>
+  </div>
+
+  <!-- Add your JavaScript here -->
+  <script>
+    // Example JavaScript: Toggle password visibility
+    const passwordInput = document.getElementById('password');
+    const passwordToggle = document.querySelector('.fa-eye-slash.icon');
+
+    passwordToggle.addEventListener('click', () => {
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+      } else {
+        passwordInput.type = 'password';
+      }
+    });
+  </script>
+</body>
+</html>
